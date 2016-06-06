@@ -13,8 +13,11 @@
 		  .container {padding:0px; box-sizing:border-box;}
 		 .row.one {text-align:center;margin:0px;
 		 		padding:0px; background-color:#0000e6;
-		 		height:200px;color:white;
-		 		/*height:300px;background:url(images/bg.jpg); background-position:center center;*/}
+		 		color:white; 
+		 		height:200px;background:url(images/lastbg.jpg); background-position:center center ; background-repeat: no-repeat; background-size: cover}
+
+		 .row.one>h1 {font-size:3em;font-weight:bold;}
+		 .row.one>h2 {font-size:3em;font-weight:bold;}
 
 		 .row.two {text-align:center;margin:0px;
 		 		padding:0px; background-color:#99ccff;}
@@ -28,16 +31,6 @@
 		 			margin-top:45px;
 		 			padding:0px; height:100vh;}
 
-	/*	 #screen {width:45vw;
-		 		  height:265px;
-		 		  z-index: 0;
-		 		  transform:skewX(175deg);
-		 		  background-color:white;
-		 		  border:5px outset grey;
-		 		  position:absolute;
-		 		  right:0px;
-		 		  top:0px;z-index: 60;}*/
-
 
 		  img {width:100vw; 
 
@@ -50,25 +43,34 @@
 		  button {padding:10px;
 		  		  font-size:20px;
 		  		  margin:10px;
-		  		  background-color:#b3ffd9;
+		  		  background:radial-gradient(white,#cccccc);
 		  		  border:none;
 		  		  border-radius:15px;}
 
-		  input[type=text] {padding:6px; font-size:20px; border-radius:5px; width:250px;}
+		  input[type=text] {padding:7px; font-size:21px; border-radius:5px; width:250px;}
 
-		  .tile {height:50vh; padding:0px; margin-top:30px; margin-bottom:30px; /*border:1px solid black;*/}
+		  .tile {height:50vh; padding:0px; margin-top:35px; margin-bottom:55px; /*border:1px solid black;*/}
 
 		  
 
-		  #title { }
+		  .title {text-align:center; }
 
 		  #img {width:20vw;  margin:auto; padding:0px;}
 
-		  #desc {width:20vw; margin:auto; border:3px solid white; padding:0px; margin-bottom:10px;}
+		  .desc {width:20vw; margin:auto; border:3px solid black; padding:0px; margin-bottom:10px; background-color:white;}
+
+		  .desc h6 {text-align:left;
+		  		   }
+
+		  .desc h5 {text-align:left; margin-bottom:2px;margin-top:2px; }
 
 		  #img>img {margin:0px; padding:0px;width:100%;}
 
-		  .exp {width:96%; margin:auto; border:1px solid black; /*height:50vh;*/padding-top:1vh;padding-top:7px; border-radius:10px; margin-top:15px;background-color:white; }
+		  .exp {width:96%; margin:auto; border:1px solid black; /*height:50vh;*/padding-top:1vh;padding-top:7px; border-radius:10px; margin-top:15px;background-color:#005ce6; }
+
+		  table {margin:auto;}
+
+		  td {text-align:center; padding-right: 7px; padding-top:2px;}
 
 		  
 	</style>
@@ -95,7 +97,6 @@
 			<button id="two" ng-click="popular()">Popular</button>
 			<button id="three" ng-click="upcoming()">Upcoming</button>
 			<button id="four" ng-click="topRated()">Top-Rated</button>
-			<button id="five" ng-click="genres()">Genres</button>
 			<button id="six" ng-click="extras()">Extras</button>
 
 		</div><!-- row three ending-->
@@ -104,14 +105,32 @@
 			<div class="container">
 
 				<div ng-repeat="tile in myArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 tile" >
-					<div class="exp">
+					<div class="exp" ng-click="moreInfo($event)">
 						<div id="img">
-							<img ng-src="http://image.tmdb.org/t/p/w320{{tile.poster_path}}?api_key=5ce8b69de33584132f1db727eb5cb513"/>
+							<img id="{{tile.id}}" ng-src="http://image.tmdb.org/t/p/w320{{tile.poster_path}}?api_key=5ce8b69de33584132f1db727eb5cb513"/>
 						</div>
-						<div id="desc">
-							<h4 id="title" class="text-center">{{tile.title}}</h4>
-							<h5 id="type" class="text-center">Release Date : {{tile.release_date}}</h5>
-							<h5 id="rating" class="text-center">Rating : {{tile.vote_average}}</h5>
+						<div class="desc">
+							<h4 id="{{tile.id}}" ng-click="moreInfo($event)" class="title">{{tile.title}}</h4>
+							<table>
+								<tr>
+								<td><h5 id="type" class="text-center">Genre:</h5></td>
+								<td><h5 id="rating" class="">{{tile.genre_ids | myFilter}} </h5></td>
+								</tr>
+								<tr>
+								<td><h5 id="type" class="text-center">Release Date: </h5></td>
+								<td><h5 id="rating" class="">{{tile.release_date}} </h5></td>
+								</tr>
+								<tr>
+								<td><h5 id="type" class="text-center"> Rating: </5h></td>
+								<td><h5 id="rating" class="text-center"> {{tile.vote_average}} / 10</h5></td>
+								</tr>
+								<tr>
+								<td><h5 id="type" class="text-center"> Vote count: </5h></td>
+								<td><h5 id="rating" class="text-center"> {{tile.vote_count}}</h5></td>
+								</tr>
+							</table>
+							
+							
 						</div>
 					</div>
 				</div>

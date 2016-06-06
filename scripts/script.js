@@ -12,11 +12,13 @@ var app = angular.module("myModule",[]);
 //another way to set the order in which they are sorted is 
 //putting a + or - in front of the expression ---> +salary/-salary
 //
+var gen;
 
 
 app.controller("myController", function($scope,$http){
 
 //https://api.themoviedb.org/3/movie/now_playing
+
 $scope.query ="";
 $scope.mySearch = function() {
     //console.log($scope.query);
@@ -62,8 +64,9 @@ $scope.nowPlaying = function () {
         $scope.myWelcome = response.statusText;
     });
 
-
 }
+
+$scope.nowPlaying();
 
 
 
@@ -77,6 +80,7 @@ $scope.nowPlaying = function () {
         // $scope.myWelcome = response.data;
         console.log(response3);
         $scope.myArray = response3.data.results;
+        
     },
      function myError(response3) {
         $scope.myWelcome = response3.statusText;
@@ -109,7 +113,7 @@ $scope.nowPlaying = function () {
     })
     .then(function mySucces(response5) {
         // $scope.myWelcome = response.data;
-        console.log(response5);
+      //  console.log(response5);
         $scope.myArray = response5.data.results;
     },
      function myError(response5) {
@@ -118,22 +122,7 @@ $scope.nowPlaying = function () {
    
 }
 
-    $scope.genres = function () {
 
-        $http({
-        method : "GET",
-        url : "https://api.themoviedb.org/3/movie/upcoming?api_key=5ce8b69de33584132f1db727eb5cb513"
-    })
-    .then(function mySucces(response6) {
-        // $scope.myWelcome = response.data;
-        console.log(response6);
-        $scope.myArray = response6.data.results;
-    },
-     function myError(response6) {
-        $scope.myWelcome = response6.statusText;
-    });
-   
-}
 
     $scope.extras = function () {
 
@@ -141,6 +130,75 @@ $scope.nowPlaying = function () {
    
 }
 
+
+$scope.moreInfo = function($event) {
+    var target = $event.target;
+    console.log(target.id);
+
+
+}
+
 	
 
 });
+
+app.filter('myFilter', function() {
+
+    var genreArray = [ {id:28 , name: "Action"},
+                       {id:12 , name: "Adventure"},
+                       {id:16 , name: "Animation"},
+                       {id:35 , name: "Comedy"},
+                       {id:80 , name: "Crime"},
+                       {id:99 , name: "Documentary"},
+                       {id:18 , name: "Drama"},
+                       {id:10751 , name: "Family"},
+                       {id:14 , name: "Fantasy"},
+                       {id:10769 , name: "Foreign"},
+                       {id:36 , name: "History"},
+                       {id:27 , name: "Horror"},
+                       {id:10402 , name: "Music"},
+                       {id:9648 , name: "Mystery"},
+                       {id:10749 , name: "Romance"},
+                       {id:878 , name: "Science Fiction"},
+                       {id:10770 , name: "TV Movie"},
+                       {id:53 , name: "Thriller"},
+                       {id:10752 , name: "War"},
+                       {id:37 , name: "Western"}
+
+    ]
+    var gen;
+    return function(y) {
+        //console.log(y)
+        var i; var a;  gen = "";
+        for (i = 0; i < y.length; i++) {
+            for (a = 0; a < genreArray.length; a++) {
+                if (genreArray[a].id == y[i]) {gen += genreArray[a].name + ",";  }
+            }
+           
+        }
+        // console.log(gen);
+        return gen;
+    };
+});
+
+
+
+
+function tileHeight () {
+    var tilesArr = document.getElementsByClassName("desc"); //console.log(tilesArr);
+    var bigHolder = 0;
+    for (i = 0; i < tilesArr.length; i++) {
+       var currHeight = tilesArr[i].offsetHeight; console.log(currHeight);
+       if (currHeight > bigHolder) {bigHolder = currHeight;}
+    }
+
+    for (j = 0; j < tilesArr.length; j++) {
+
+        tilesArr[j].style.height = bigHolder + "px"; //console.log("I work");
+    }
+
+console.log(bigHolder);
+}
+
+var timer = window.setInterval(tileHeight, 250);
+// tileHeight();
