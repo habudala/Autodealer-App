@@ -1,39 +1,102 @@
 <!DOCTYPE html>
 <html ng-app="myModule">
 <head>
-	<title>Movie Database</title>
+	<title>Movie Mate Database</title>
 	<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 	<style type="text/css">
 
-	body {background:linear-gradient(to right, rgba(0,0,0,0.05), rgba(3,3,3,0.2));
+	body {background-color:#99ccff;
 		  }
+		  .container-fluid {margin:0px; padding:0px;}
+		  .container {border:1px solid black;padding:0px;box-sizing: border-box}
+		 .row.one {text-align:center;margin:0px;
+		 		padding:0px; background-color:#0000e6;
+		 		height:200px;color:white;
+		 		/*height:300px;background:url(images/bg.jpg); background-position:center center;*/}
+
+		 .row.two {text-align:center;margin:0px;
+		 		padding:0px; background-color:#99ccff;}
+
+		 .row.three {text-align:center;margin:0px;
+		 		padding:0px;
+		 		background-color:#99ccff;}
+
+		 .row.four {background-color:#99ccff;
+		 			margin:0px;
+		 			margin-top:25px;
+		 			padding:0px; height:100vh;}
+
+	/*	 #screen {width:45vw;
+		 		  height:265px;
+		 		  z-index: 0;
+		 		  transform:skewX(175deg);
+		 		  background-color:white;
+		 		  border:5px outset grey;
+		 		  position:absolute;
+		 		  right:0px;
+		 		  top:0px;z-index: 60;}*/
 
 
+		  img {width:100vw; 
 
+		  	   height:35vh;
+		  	   margin:0px;
+		  	   margin-top:-97px;
+		  	   padding:0px;
+		  	   }
+
+		  button {padding:10px;
+		  		  font-size:20px;
+		  		  margin:10px;
+		  		  background-color:#b3ffd9;
+		  		  border:none;
+		  		  border-radius:15px;}
+
+		  input[type=text] {padding:6px; font-size:20px; border-radius:5px; width:250px;}
+
+		  .tile {height:40vh;padding:0px; margin:0px;}
+
+		  #exp {width:90%; border:1px solid black; margin:auto; height:38vh;}
 	</style>
 </head>
 <body ng-controller="myController">
 	
-	<div class="container">
+	<div class="container-fluid">
 
 		<div class="row one">
-			<h1>zmovie Database</h1>
-			<h2></h2>
+			<h1>Movie Mate</h1>
+			<h2>Never think of what to watch again!</h2>
 		</div><!--row one (title,subtitle) ending-->
 		
 		<div class="row two">
-
-		
-			</div><!--row two ending-->
+			<div id="screen"></div>
+			<div><img src="images/filmrail.png"/></div>
+			<input type="text" id="userInput" placeholder="Search Movies or Series"/>
+			<button id="submit">Touch Me</button>
+		</div><!--row two ending-->
 
 		<div class="row three">
-		
+
+			<button id="one" ng-click="nowPlaying()">Now Playing</button>
+			<button id="two" ng-click="popular()">Popular</button>
+			<button id="three" ng-click="upcoming()">Upcoming</button>
+			<button id="four" ng-click="topRated()">Top-Rated</button>
+			<button id="five" ng-click="genres()">Genres</button>
+			<button id="six" ng-click="extras()">Extras</button>
+
 		</div><!-- row three ending-->
 
 		<div class="row four">
-		
+			<div class="container">
+
+				<div id="tile" ng-repeat="tile in myArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 tile" >
+					<div id="exp"></div>
+				</div>
+				
+
+			</div>
 		</div>
 
 	</div>
