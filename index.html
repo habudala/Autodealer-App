@@ -10,7 +10,7 @@
 	body {background-color:#99ccff;
 		  }
 		  .container-fluid {margin:0px; padding:0px;}
-		  .container {border:1px solid black;padding:0px;box-sizing: border-box}
+		  .container {padding:0px; box-sizing:border-box;}
 		 .row.one {text-align:center;margin:0px;
 		 		padding:0px; background-color:#0000e6;
 		 		height:200px;color:white;
@@ -25,7 +25,7 @@
 
 		 .row.four {background-color:#99ccff;
 		 			margin:0px;
-		 			margin-top:25px;
+		 			margin-top:45px;
 		 			padding:0px; height:100vh;}
 
 	/*	 #screen {width:45vw;
@@ -56,9 +56,21 @@
 
 		  input[type=text] {padding:6px; font-size:20px; border-radius:5px; width:250px;}
 
-		  .tile {height:40vh;padding:0px; margin:0px;}
+		  .tile {height:50vh; padding:0px; margin-top:30px; margin-bottom:30px; /*border:1px solid black;*/}
 
-		  #exp {width:90%; border:1px solid black; margin:auto; height:38vh;}
+		  
+
+		  #title { }
+
+		  #img {width:20vw;  margin:auto; padding:0px;}
+
+		  #desc {width:20vw; margin:auto; border:3px solid white; padding:0px; margin-bottom:10px;}
+
+		  #img>img {margin:0px; padding:0px;width:100%;}
+
+		  .exp {width:96%; margin:auto; border:1px solid black; /*height:50vh;*/padding-top:1vh;padding-top:7px; border-radius:10px; margin-top:15px;background-color:white; }
+
+		  
 	</style>
 </head>
 <body ng-controller="myController">
@@ -73,8 +85,8 @@
 		<div class="row two">
 			<div id="screen"></div>
 			<div><img src="images/filmrail.png"/></div>
-			<input type="text" id="userInput" placeholder="Search Movies or Series"/>
-			<button id="submit">Touch Me</button>
+			<input type="text" id="userInput" ng-model="query" placeholder="Search Movies or Series"/>
+			<button id="submit" ng-click="mySearch()">Search</button>
 		</div><!--row two ending-->
 
 		<div class="row three">
@@ -91,8 +103,17 @@
 		<div class="row four">
 			<div class="container">
 
-				<div id="tile" ng-repeat="tile in myArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 tile" >
-					<div id="exp"></div>
+				<div ng-repeat="tile in myArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 tile" >
+					<div class="exp">
+						<div id="img">
+							<img ng-src="http://image.tmdb.org/t/p/w320{{tile.poster_path}}?api_key=5ce8b69de33584132f1db727eb5cb513"/>
+						</div>
+						<div id="desc">
+							<h4 id="title" class="text-center">{{tile.title}}</h4>
+							<h5 id="type" class="text-center">Release Date : {{tile.release_date}}</h5>
+							<h5 id="rating" class="text-center">Rating : {{tile.vote_average}}</h5>
+						</div>
+					</div>
 				</div>
 				
 

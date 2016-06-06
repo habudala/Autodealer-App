@@ -17,18 +17,29 @@ var app = angular.module("myModule",[]);
 app.controller("myController", function($scope,$http){
 
 //https://api.themoviedb.org/3/movie/now_playing
+$scope.query ="";
+$scope.mySearch = function() {
+    //console.log($scope.query);
+    var finalQuery = $scope.query.trim();
+    finalQuery = escape($scope.query);
+    console.log(finalQuery);
 
-$http({
+    $http({
         method : "GET",
-        url : "https://api.themoviedb.org/3/search/multi?api_key=5ce8b69de33584132f1db727eb5cb513&query=batman"
+        url : "https://api.themoviedb.org/3/search/multi?api_key=5ce8b69de33584132f1db727eb5cb513&query=" +
+         finalQuery
     })
     .then(function mySucces(response2) {
         // $scope.myWelcome = response.data;
         console.log(response2);
+        $scope.myArray = response2.data.results;
     },
      function myError(response2) {
         $scope.myWelcome = response2.statusText;
     });
+
+}
+
 
 
 
@@ -40,8 +51,12 @@ $scope.nowPlaying = function () {
     })
     .then(function mySucces(response) {
         // $scope.myWelcome = response.data;
-        // console.log(response.data.results[0]);
+        console.log(response);
         $scope.myArray = response.data.results;
+
+       // http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg
+        //http://image.tmdb.org/t/p/w500/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg?api_key=5ce8b69de33584132f1db727eb5cb513
+        
     },
      function myError(response) {
         $scope.myWelcome = response.statusText;
@@ -90,7 +105,7 @@ $scope.nowPlaying = function () {
 
         $http({
         method : "GET",
-        url : "https://api.themoviedb.org/3/movie/upcoming?api_key=5ce8b69de33584132f1db727eb5cb513"
+        url : "https://api.themoviedb.org/3/movie/top_rated?api_key=5ce8b69de33584132f1db727eb5cb513"
     })
     .then(function mySucces(response5) {
         // $scope.myWelcome = response.data;
