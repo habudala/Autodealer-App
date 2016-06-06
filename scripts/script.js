@@ -1,5 +1,5 @@
 // creating a module called myModule
-var variable = angular.module("myModule",[]);
+var app = angular.module("myModule",[]);
 
 
 //
@@ -14,25 +14,37 @@ var variable = angular.module("myModule",[]);
 //
 
 
-variable.controller("myController", function($scope){
+app.controller("myController", function($scope,$http){
 
-	// DUMMY DATA
-	// var merchandise = [{ image:"images/2014toyotaCorolla.jpg", brand:"Toyota", model:"Corolla", year:2014, engine: "v4", mileage: 75000, price: 25000 },
-	// { image:"images/2008chevroletSilverado.jpg", brand:"Chevrolet", model:"Silverado", year:2009, engine: "v8", mileage: 90000, price: 35000 },
-	// { image:"images/2010volkswagenBug.jpg", brand:"Volkswagen", model:"Beetle", year:2010, engine: "v4", mileage: 50000, price: 45000 },
-	// { image:"images/2010mazda3.jpg", brand:"Mazda", model:"3", year:2010, engine: "v4", mileage: 72000, price: 34000 },
-	// { image:"images/2012hondaAccord.jpg", brand:"Honda", model:"Accord", year:2012, engine: "v4", mileage: 35000, price: 27000 },
-	// { image:"images/2012mustang.jpg", brand:"Ford", model:"Mustang", year:2012, engine: "v6", mileage: 45000, price: 19000 },
-	// { image:"images/2012porscheCayman.jpg", brand:"Porche", model:"Cayman", year:2012, engine: "v8", mileage: 47000, price: 38000 },
-	// { image:"images/2013fordFusion.jpg", brand:"Ford", model:"Fusion", year:2013, engine: "v4", mileage: 75000, price: 25000 },
-	// { image:"images/2013porscheCayenne.jpg", brand:"Porche", model:"Cayenne", year:2013, engine: "v8", mileage: 64000, price: 47000 },
-	// { image:"images/2013volkswagenBug.jpg", brand:"Volkswagen", model:"Beetle", year:2013, engine: "v4", mileage: 97000, price: 29000 },
-	// { image:"images/2015mustang.png", brand:"Ford", model:"Mustang", year:2015, engine: "v8", mileage: 7000, price: 53000 }
-	// 				  ];
+https://api.themoviedb.org/3/movie/now_playing
 
-	// $scope.merchandise = merchandise;
+	$http({
+        method : "GET",
+        url : "https://api.themoviedb.org/3/movie/now_playing?api_key=5ce8b69de33584132f1db727eb5cb513"
+    })
+    .then(function mySucces(response) {
+        // $scope.myWelcome = response.data;
+        console.log(response);
+    },
+     function myError(response) {
+        $scope.myWelcome = response.statusText;
+    });
 
-	// $scope.sortColumn = "brand";
+
+
+    $http({
+        method : "GET",
+        url : "https://api.themoviedb.org/3/search/multi?api_key=5ce8b69de33584132f1db727eb5cb513&query=batman"
+    })
+    .then(function mySucces(response2) {
+        // $scope.myWelcome = response.data;
+        console.log(response2);
+    },
+     function myError(response2) {
+        $scope.myWelcome = response2.statusText;
+    });
+
+
 	
 
 });
